@@ -66,10 +66,13 @@ namespace CosmicCuration.Player
 
         private void HandlePlayerRotation()
         {
-            // Rotate the player to look in the direction of mouse position.
+            // Rotate the player to look in the direction of the mouse position.
             var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(playerView.transform.position);
             var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            playerView.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+
+            // Calculate the desired rotation based on the rotation speed and time.deltaTime
+            var desiredRotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+            playerView.transform.rotation = Quaternion.RotateTowards(playerView.transform.rotation, desiredRotation, playerScriptableObject.rotationSpeed * Time.deltaTime);
         }
 
         private void HandleShooting()
@@ -78,7 +81,7 @@ namespace CosmicCuration.Player
                 FireWeapon();
             if (Input.GetKeyUp(KeyCode.Space))
                 currentShootingState = ShootingState.NotFiring;
-        }
+        }  
 
         // Firing Weapons
         private async void FireWeapon()
@@ -114,6 +117,11 @@ namespace CosmicCuration.Player
         public void ToggleDoubleTurret(bool doubleTurretActive) => currentWeaponMode = doubleTurretActive ? WeaponMode.DoubleTurret : WeaponMode.SingleCanon;
 
         public void ToggleRapidFire(bool rapidFireActive) => currentRateOfFire = rapidFireActive ? playerScriptableObject.rapidFireRate : playerScriptableObject.defaultFireRate;
+
+        public void ToggleShieldUI(bool value)
+        {
+            playerView.shield.SetActive(value);
+        }
 
         public void TakeDamage(int damageToTake)
         {

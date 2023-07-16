@@ -8,12 +8,15 @@ using CosmicCuration.VFX;
 using CosmicCuration.Player;
 using CosmicCuration.UI;
 using CosmicCuration.Utilities;
-using CosmicCuration.PowerUps; 
+using CosmicCuration.PowerUps;
+using MainMenuUI;
 #endregion
 
 
 public class GameService : GenericMonoSingleton<GameService>
 {
+    public DifficultyLevel difficultyLevel;
+
     #region Dependencies
 
     private PlayerService playerService;
@@ -22,6 +25,7 @@ public class GameService : GenericMonoSingleton<GameService>
     private VFXService vfxService;
     private SoundService soundService;
     [SerializeField] private UIView uiService;
+    [SerializeField] private MainMenu mainMenu;
 
     #endregion
 
@@ -72,7 +76,35 @@ public class GameService : GenericMonoSingleton<GameService>
 
     public SoundService GetSoundService() => soundService;
 
-    public UIView GetUIService() => uiService; 
+    public UIView GetUIService() => uiService;
+
+    public MainMenu GetMainMenu() => mainMenu;
     #endregion
+
+    public void SetDifficultyVariables()
+    {
+        switch (difficultyLevel)
+        {
+            case DifficultyLevel.easy:
+                playerScriptableObject.movementSpeed = 3;
+                playerScriptableObject.rotationSpeed = 250f;
+                break;
+
+            case DifficultyLevel.medium:
+                playerScriptableObject.movementSpeed = 5;
+                playerScriptableObject.rotationSpeed = 350f;
+                break;
+
+            case DifficultyLevel.hard:
+                playerScriptableObject.movementSpeed = 7;
+                playerScriptableObject.rotationSpeed = 500f;
+                break;
+
+            default:
+                playerScriptableObject.movementSpeed = 3;
+                playerScriptableObject.rotationSpeed = 250f;
+                break;
+        }
+    }
 
 }

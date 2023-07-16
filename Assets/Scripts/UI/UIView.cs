@@ -8,8 +8,9 @@ namespace CosmicCuration.UI
     public class UIView : MonoBehaviour
     {
         #region References
-        [SerializeField] private TextMeshProUGUI scoreText;
-        [SerializeField] private TextMeshProUGUI healthText;
+        [SerializeField] private Text scoreText;
+        [SerializeField] private Text highScoreText;
+        [SerializeField] private Text healthText;
         [SerializeField] private GameObject gameplayPanel;
         [SerializeField] private GameObject gameOverPanel;
         [SerializeField] private Button playAgainButton;
@@ -29,10 +30,10 @@ namespace CosmicCuration.UI
         public void IncrementScore(int scoreToIncrement)
         {
             currentScore += scoreToIncrement;
-            scoreText.SetText(currentScore.ToString());
+            scoreText.text = currentScore.ToString();
         }
 
-        public void UpdateHealthUI(int healthToDisplay) => healthText.SetText(healthToDisplay.ToString());
+        public void UpdateHealthUI(int healthToDisplay) => healthText.text = healthToDisplay.ToString();
 
         public void EnableGameOverUI()
         {

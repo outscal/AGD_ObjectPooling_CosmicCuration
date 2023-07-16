@@ -7,6 +7,7 @@ namespace CosmicCuration.Player
     {
         public int maxHealth;
         public float movementSpeed;
+        public float rotationSpeed;
         public float defaultFireRate;
         public float rapidFireRate;
         public int deathDelay;
