@@ -8,28 +8,28 @@ namespace CosmicCuration.Enemy
     public class EnemyController
     {
         // Dependencies:
-        private EnemyView enemyView;
-        private EnemyData enemyData;
+        protected EnemyView enemyView;
+        protected EnemyData enemyData;
 
         // Variables:
-        private EnemyState currentEnemyState;
-        private int currentHealth;
-        private float speed;
-        private float movementTimer;
-        private Quaternion targetRotation;
+        protected EnemyState currentEnemyState;
+        protected int currentHealth;
+        protected float speed;
+        protected float movementTimer;
+        protected Quaternion targetRotation;
 
-        public EnemyController(EnemyView enemyPrefab, EnemyData enemyData)
+        public EnemyController(EnemyData enemyData)
         {
-            enemyView = Object.Instantiate(enemyPrefab);
+            enemyView = Object.Instantiate(enemyData.enemyPrefab);
             enemyView.SetController(this);
             this.enemyData = enemyData;
         }
 
-        public void Configure(Vector3 positionToSet, EnemyOrientation enemyOrientation)
+        public virtual void Configure(Vector3 positionToSet, EnemyOrientation enemyOrientation)
         {
             enemyView.transform.position = positionToSet;
             SetEnemyOrientation(enemyOrientation);
-            
+
             currentEnemyState = EnemyState.Moving;
             currentHealth = enemyData.maxHealth;
             speed = Random.Range(enemyData.minimumSpeed, enemyData.maximumSpeed);
@@ -37,7 +37,7 @@ namespace CosmicCuration.Enemy
             enemyView.gameObject.SetActive(true);
         }
 
-        private void SetEnemyOrientation(EnemyOrientation orientation)
+        protected void SetEnemyOrientation(EnemyOrientation orientation)
         {
             // Rotate the enemy based on its orientation
             switch (orientation)
@@ -55,7 +55,7 @@ namespace CosmicCuration.Enemy
                     enemyView.transform.rotation = Quaternion.Euler(0f, 0f, 180f);
                     break;
             }
-        } 
+        }
 
         public void TakeDamage(int damageToTake)
         {
@@ -64,9 +64,9 @@ namespace CosmicCuration.Enemy
                 EnemyDestroyed();
         }
 
-        public void UpdateMotion()
+        public virtual void UpdateMotion()
         {
-            if(currentEnemyState == EnemyState.Moving)
+            if (currentEnemyState == EnemyState.Moving)
             {
                 enemyView.transform.position += enemyView.transform.up * Time.deltaTime * speed;
                 movementTimer -= Time.deltaTime;
@@ -77,7 +77,7 @@ namespace CosmicCuration.Enemy
                     movementTimer = enemyData.movementDuration;
                 }
             }
-            else if(currentEnemyState == EnemyState.Rotating)
+            else if (currentEnemyState == EnemyState.Rotating)
             {
                 enemyView.transform.rotation = Quaternion.RotateTowards(enemyView.transform.rotation, targetRotation, enemyData.rotationSpeed * Time.deltaTime);
 
@@ -86,7 +86,7 @@ namespace CosmicCuration.Enemy
             }
         }
 
-        private void SetTargetRotation()
+        protected void SetTargetRotation()
         {
             Vector3 direction = GameService.Instance.GetPlayerService().GetPlayerPosition() - enemyView.transform.position;
             targetRotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f);
@@ -102,7 +102,7 @@ namespace CosmicCuration.Enemy
             }
         }
 
-        private void EnemyDestroyed()
+        protected virtual void EnemyDestroyed()
         {
             GameService.Instance.GetUIService().IncrementScore(enemyData.scoreToGrant);
             GameService.Instance.GetSoundService().PlaySoundEffects(SoundType.EnemyDeath);
@@ -111,10 +111,10 @@ namespace CosmicCuration.Enemy
             GameService.Instance.GetEnemyService().ReturnEnemyToPool(this);
         }
 
-        private enum EnemyState
+        protected enum EnemyState
         {
-            Moving, 
+            Moving,
             Rotating
         }
-    } 
+    }
 }

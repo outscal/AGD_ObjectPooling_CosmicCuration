@@ -17,11 +17,55 @@ MonoBehaviour:
   minimumSpawnRate: 0.5
   difficultyDelta: 0.05
   enemyData:
-    maxHealth: 3
-    minimumSpeed: 4
-    maximumSpeed: 8
-    damageToInflict: 1
-    scoreToGrant: 5
-    movementDuration: 5
-    rotationSpeed: 200
-    rotationTolerance: 2
+  - enemyType: 0
+    enemyPrefab: {fileID: 0}
+    maxHealth: 0
+    minimumSpeed: 0
+    maximumSpeed: 0
+    damageToInflict: 0
+    scoreToGrant: 0
+    movementDuration: 0
+    rotationSpeed: 0
+    rotationTolerance: 0
+    dashSpeed: 0
+    shootingDistance: 0
+    shootingCooldown: 0
+  - enemyType: 1
+    enemyPrefab: {fileID: 0}
+    maxHealth: 0
+    minimumSpeed: 0
+    maximumSpeed: 0
+    damageToInflict: 0
+    scoreToGrant: 0
+    movementDuration: 0
+    rotationSpeed: 0
+    rotationTolerance: 0
+    dashSpeed: 0
+    shootingDistance: 0
+    shootingCooldown: 0
+  - enemyType: 3
+    enemyPrefab: {fileID: 0}
+    maxHealth: 0
+    minimumSpeed: 0
+    maximumSpeed: 0
+    damageToInflict: 0
+    scoreToGrant: 0
+    movementDuration: 0
+    rotationSpeed: 0
+    rotationTolerance: 0
+    dashSpeed: 0
+    shootingDistance: 0
+    shootingCooldown: 0
+  - enemyType: 2
+    enemyPrefab: {fileID: 0}
+    maxHealth: 0
+    minimumSpeed: 0
+    maximumSpeed: 0
+    damageToInflict: 0
+    scoreToGrant: 0
+    movementDuration: 0
+    rotationSpeed: 0
+    rotationTolerance: 0
+    dashSpeed: 0
+    shootingDistance: 0
+    shootingCooldown: 0

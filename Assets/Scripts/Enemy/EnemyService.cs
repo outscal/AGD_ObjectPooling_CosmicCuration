@@ -18,10 +18,10 @@ namespace CosmicCuration.Enemy
         #endregion
 
         #region Initialization
-        public EnemyService(EnemyView enemyPrefab, EnemyScriptableObject enemyScriptableObject)
+        public EnemyService(EnemyScriptableObject enemyScriptableObject)
         {
             this.enemyScriptableObject = enemyScriptableObject;
-            enemyPool = new EnemyPool(enemyPrefab, enemyScriptableObject.enemyData);
+            enemyPool = new EnemyPool();
             InitializeVariables();
         }
 
@@ -50,18 +50,44 @@ namespace CosmicCuration.Enemy
         #region Spawning Enemies
         private void SpawnEnemy()
         {
+            // Select a random enemy (Shooting/RapidDash/ContinousChase/Normal)
+            EnemyType randomEnemy = (EnemyType)UnityEngine.Random.Range(0, Enum.GetValues(typeof(EnemyType)).Length);
+
+            // Fetch the corresponding EnemyController.
+            EnemyController enemy = FetchEnemy(randomEnemy);
+
             // Get a random orientation for the enemy (Up / Down / Left / Right)
             EnemyOrientation randomOrientation = (EnemyOrientation)Random.Range(0, Enum.GetValues(typeof(EnemyOrientation)).Length);
 
-            // Calculate a spawn position outside the game screen according to the orientation and spawn an enemy.
-            SpawnEnemyAtPosition(CalculateSpawnPosition(randomOrientation), randomOrientation);
+            // Configure the enemy to be spawned.
+            enemy.Configure(CalculateSpawnPosition(randomOrientation), randomOrientation);
+           
         }
 
-        private void SpawnEnemyAtPosition(Vector2 spawnPosition, EnemyOrientation enemyOrientation)
+        private EnemyController FetchEnemy(EnemyType typeToFetch)
         {
-            EnemyController spawnedEnemy = enemyPool.GetEnemy();
-            spawnedEnemy.Configure(spawnPosition, enemyOrientation);
+            EnemyData fetchedData = enemyScriptableObject.enemyData.Find(item => item.enemyType == typeToFetch);
+
+            switch (typeToFetch)
+            {
+                case EnemyType.Shooting:
+                    return (EnemyController)enemyPool.GetEnemy<ShootingEnemy>(fetchedData);
+                case EnemyType.RapidDash:
+                    return (EnemyController)enemyPool.GetEnemy<RapidDashEnemy>(fetchedData);
+                case EnemyType.ContinousChase:
+                    return (EnemyController)enemyPool.GetEnemy<ContinousChaseEnemy>(fetchedData);
+                case EnemyType.Normal:
+                    return (EnemyController)enemyPool.GetEnemy<NormalEnemy>(fetchedData);
+                default:
+                    throw new Exception($"Failed to Create EnemyController for: {typeToFetch}");
+            }
         }
+
+        //private void SpawnEnemyAtPosition(Vector2 spawnPosition, EnemyOrientation enemyOrientation)
+        //{
+        //    EnemyController spawnedEnemy = enemyPool.GetEnemy();
+        //    spawnedEnemy.Configure(spawnPosition, enemyOrientation);
+        //}
 
         private Vector2 CalculateSpawnPosition(EnemyOrientation enemyOrientation)
         {

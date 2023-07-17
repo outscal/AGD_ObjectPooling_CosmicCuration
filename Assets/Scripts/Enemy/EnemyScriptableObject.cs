@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace CosmicCuration.Enemy
@@ -10,12 +11,14 @@ namespace CosmicCuration.Enemy
         public float initialSpawnRate;
         public float minimumSpawnRate;
         public float difficultyDelta;
-        public EnemyData enemyData;
+        public List<EnemyData> enemyData;
     }
 
     [Serializable]
     public struct EnemyData
     {
+        public EnemyType enemyType;
+        public EnemyView enemyPrefab;
         public int maxHealth;
         public float minimumSpeed;
         public float maximumSpeed;
@@ -24,5 +27,8 @@ namespace CosmicCuration.Enemy
         public float movementDuration;
         public float rotationSpeed;
         public float rotationTolerance;
+        public float dashSpeed;
+        public float shootingDistance;
+        public float shootingCooldown;
     } 
 }
