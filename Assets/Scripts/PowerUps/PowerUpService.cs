@@ -58,6 +58,10 @@ namespace CosmicCuration.PowerUps
                     return (PowerUpController)powerUpPool.GetPowerUp<DoubleTurret>(fetchedData);
                 case PowerUpType.RapidFire:
                     return (PowerUpController)powerUpPool.GetPowerUp<RapidFire>(fetchedData);
+                case PowerUpType.Health:
+                    return (PowerUpController)powerUpPool.GetPowerUp<Health>(fetchedData);
+                case PowerUpType.Bomb:
+                    return (PowerUpController)powerUpPool.GetPowerUp<Bomb>(fetchedData);
                 default:
                     throw new Exception($"Failed to Create PowerUpController for: {typeToFetch}");
             }

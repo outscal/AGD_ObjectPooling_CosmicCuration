@@ -4,6 +4,8 @@ namespace CosmicCuration.PowerUps
     {
         Shield,
         RapidFire,
-        DoubleTurret
+        DoubleTurret,
+        Health,
+        Bomb
     } 
 }

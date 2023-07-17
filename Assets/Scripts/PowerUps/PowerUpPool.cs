@@ -20,6 +20,10 @@ public class PowerUpPool : GenericObjectPool<IPowerUp>
             return new DoubleTurret(dataToUse);
         else if (typeof(T) == typeof(RapidFire))
             return new RapidFire(dataToUse);
+        else if (typeof(T) == typeof(Health))
+            return new Health(dataToUse);
+        else if (typeof(T) == typeof(Bomb))
+            return new Bomb(dataToUse);
         else
             throw new NotSupportedException($"Power-up type '{typeof(T)}' is not supported.");
     }
