@@ -18,54 +18,58 @@ MonoBehaviour:
   difficultyDelta: 0.05
   enemyData:
   - enemyType: 0
-    enemyPrefab: {fileID: 0}
-    maxHealth: 0
-    minimumSpeed: 0
-    maximumSpeed: 0
-    damageToInflict: 0
-    scoreToGrant: 0
-    movementDuration: 0
-    rotationSpeed: 0
-    rotationTolerance: 0
+    enemyPrefab: {fileID: 427177731486789180, guid: 31467802ee041b44db8372a412ef6e52,
+      type: 3}
+    maxHealth: 3
+    minimumSpeed: 4
+    maximumSpeed: 8
+    damageToInflict: 1
+    scoreToGrant: 5
+    movementDuration: 5
+    rotationSpeed: 200
+    rotationTolerance: 2
     dashSpeed: 0
-    shootingDistance: 0
-    shootingCooldown: 0
+    shootingDistance: 10
+    shootingCooldown: 1
   - enemyType: 1
-    enemyPrefab: {fileID: 0}
-    maxHealth: 0
-    minimumSpeed: 0
-    maximumSpeed: 0
-    damageToInflict: 0
-    scoreToGrant: 0
-    movementDuration: 0
-    rotationSpeed: 0
-    rotationTolerance: 0
-    dashSpeed: 0
+    enemyPrefab: {fileID: 427177731486789180, guid: 1c0eaa7d8a6340f48834dceff053beda,
+      type: 3}
+    maxHealth: 3
+    minimumSpeed: 4
+    maximumSpeed: 8
+    damageToInflict: 1
+    scoreToGrant: 5
+    movementDuration: 5
+    rotationSpeed: 200
+    rotationTolerance: 2
+    dashSpeed: 5
     shootingDistance: 0
     shootingCooldown: 0
   - enemyType: 3
-    enemyPrefab: {fileID: 0}
-    maxHealth: 0
-    minimumSpeed: 0
-    maximumSpeed: 0
-    damageToInflict: 0
-    scoreToGrant: 0
-    movementDuration: 0
-    rotationSpeed: 0
-    rotationTolerance: 0
+    enemyPrefab: {fileID: 427177731486789180, guid: 6ec805b0fd2b5fd42bd04a26e3c6754b,
+      type: 3}
+    maxHealth: 3
+    minimumSpeed: 4
+    maximumSpeed: 8
+    damageToInflict: 1
+    scoreToGrant: 5
+    movementDuration: 5
+    rotationSpeed: 200
+    rotationTolerance: 2
     dashSpeed: 0
     shootingDistance: 0
     shootingCooldown: 0
   - enemyType: 2
-    enemyPrefab: {fileID: 0}
-    maxHealth: 0
-    minimumSpeed: 0
-    maximumSpeed: 0
-    damageToInflict: 0
-    scoreToGrant: 0
-    movementDuration: 0
-    rotationSpeed: 0
-    rotationTolerance: 0
+    enemyPrefab: {fileID: 427177731486789180, guid: d1ce4f1dcd694cb468ddd09ec18064de,
+      type: 3}
+    maxHealth: 3
+    minimumSpeed: 4
+    maximumSpeed: 8
+    damageToInflict: 1
+    scoreToGrant: 5
+    movementDuration: 5
+    rotationSpeed: 200
+    rotationTolerance: 2
     dashSpeed: 0
     shootingDistance: 0
     shootingCooldown: 0
