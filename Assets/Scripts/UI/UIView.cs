@@ -19,10 +19,17 @@ namespace CosmicCuration.UI
 
         #region Variables
         private int currentScore;
+        private int highScore;
         #endregion
 
         private void Start()
         {
+            if (PlayerPrefs.HasKey("HighScore"))
+            {
+                highScore= PlayerPrefs.GetInt("HighScore");
+                highScoreText.text = highScore.ToString();
+            }
+    
             currentScore = 0;
             IncrementScore(currentScore);
         }
@@ -41,6 +48,15 @@ namespace CosmicCuration.UI
             gameOverPanel.SetActive(true);
             playAgainButton.onClick.AddListener(OnPlayAgainClicked);
             quitButton.onClick.AddListener(OnQuitClicked);
+        }
+
+        public void StoreHighScore()
+        {
+            if (currentScore > highScore)
+            {
+                highScore = currentScore;
+                PlayerPrefs.SetInt("HighScore", highScore);
+            }
         }
 
         private void OnPlayAgainClicked() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

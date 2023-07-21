@@ -148,6 +148,7 @@ namespace CosmicCuration.Player
             
             // Wait for Player Ship Destruction.
             await Task.Delay(playerScriptableObject.deathDelay * 1000);
+            GameService.Instance.GetUIService().StoreHighScore();
             GameService.Instance.GetUIService().EnableGameOverUI();
         }
 
