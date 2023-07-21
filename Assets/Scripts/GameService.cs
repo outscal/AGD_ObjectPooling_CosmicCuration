@@ -22,6 +22,7 @@ public class GameService : GenericMonoSingleton<GameService>
     private VFXService vfxService;
     private SoundService soundService;
     [SerializeField] private UIView uiService;
+    [SerializeField] private CameraShake cameraShake;
 
     #endregion
 
@@ -74,5 +75,10 @@ public class GameService : GenericMonoSingleton<GameService>
 
     public UIView GetUIService() => uiService; 
     #endregion
+
+    public void ShakeCamera()
+    {
+        cameraShake.Shake();
+    }
 
 }

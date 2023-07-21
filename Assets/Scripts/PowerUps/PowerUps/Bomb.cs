@@ -9,13 +9,13 @@ namespace CosmicCuration.PowerUps
         public override void Activate()
         {
             base.Activate();
-            //GameService.Instance.GetPlayerService().GetPlayerController().SetShieldState(ShieldState.Activated);
+            GameService.Instance.GetEnemyService().DestroyAllEnemies();
+            GameService.Instance.ShakeCamera();
         }
 
         public override void Deactivate()
         {
             base.Deactivate();
-            //GameService.Instance.GetPlayerService().GetPlayerController().SetShieldState(ShieldState.Deactivated);
         }
     }
 }

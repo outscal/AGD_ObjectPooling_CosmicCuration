@@ -40,6 +40,11 @@ namespace CosmicCuration.Player
             GameService.Instance.GetUIService().UpdateHealthUI(currentHealth);
         }
 
+        public void IncreaseHealth()
+        {
+            currentHealth++;
+            GameService.Instance.GetUIService().UpdateHealthUI(currentHealth);
+        }
 
         // Input Handling:
         public void HandlePlayerInput()

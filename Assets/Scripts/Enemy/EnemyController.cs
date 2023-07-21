@@ -111,6 +111,11 @@ namespace CosmicCuration.Enemy
             GameService.Instance.GetEnemyService().ReturnEnemyToPool(this);
         }
 
+        public void DestroyEnemy()
+        {
+            EnemyDestroyed();
+        }
+
         private enum EnemyState
         {
             Moving, 

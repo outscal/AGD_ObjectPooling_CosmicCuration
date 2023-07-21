@@ -110,6 +110,17 @@ namespace CosmicCuration.Enemy
         public void SetEnemySpawning(bool setActive) => isSpawning = setActive;
 
         public void ReturnEnemyToPool(EnemyController enemyToReturn) => enemyPool.ReturnItem(enemyToReturn);
+
+        public void DestroyAllEnemies()
+        {
+            for(int i=0; i< enemyPool.pooledItems.Count; i++)
+            {
+                if (enemyPool.pooledItems[i].isUsed)
+                {
+                    enemyPool.pooledItems[i].Item.DestroyEnemy();
+                }
+            }
+        }
     }
 
     public enum EnemyOrientation
