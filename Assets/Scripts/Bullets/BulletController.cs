@@ -18,9 +18,15 @@ namespace CosmicCuration.Bullets
 
         public void ConfigureBullet(Transform spawnTransform)
         {
+            bulletView.GetComponent<SpriteRenderer>().color = Color.white;
             bulletView.gameObject.SetActive(true);
             bulletView.transform.position = spawnTransform.position;
             bulletView.transform.rotation = spawnTransform.rotation;
+        }
+
+        public void ChangeBulletColor(Color color)
+        {
+            bulletView.GetComponent<SpriteRenderer>().color = color;
         }
 
         public void UpdateBulletMotion() => bulletView.transform.Translate(Vector2.up * Time.deltaTime * bulletScriptableObject.speed);

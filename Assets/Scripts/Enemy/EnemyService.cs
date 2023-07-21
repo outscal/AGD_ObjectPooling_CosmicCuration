@@ -1,3 +1,4 @@
+using CosmicCuration.Bullets;
 using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -9,6 +10,7 @@ namespace CosmicCuration.Enemy
         #region Dependencies
         private EnemyScriptableObject enemyScriptableObject;
         private EnemyPool enemyPool;
+        private BulletPool bulletPool;
         #endregion
 
         #region Variables
@@ -18,10 +20,11 @@ namespace CosmicCuration.Enemy
         #endregion
 
         #region Initialization
-        public EnemyService(EnemyScriptableObject enemyScriptableObject)
+        public EnemyService(EnemyScriptableObject enemyScriptableObject, BulletView bulletPrefab, BulletScriptableObject bulletScriptableObject)
         {
             this.enemyScriptableObject = enemyScriptableObject;
             enemyPool = new EnemyPool();
+            bulletPool = new BulletPool(bulletPrefab, bulletScriptableObject);
             InitializeVariables();
         }
 
@@ -60,7 +63,7 @@ namespace CosmicCuration.Enemy
             EnemyOrientation randomOrientation = (EnemyOrientation)Random.Range(0, Enum.GetValues(typeof(EnemyOrientation)).Length);
 
             // Configure the enemy to be spawned.
-            enemy.Configure(CalculateSpawnPosition(randomOrientation), randomOrientation);
+            enemy.Configure(CalculateSpawnPosition(randomOrientation), randomOrientation, bulletPool);
            
         }
 
@@ -118,7 +121,6 @@ namespace CosmicCuration.Enemy
                     spawnPosition.y = halfScreenHeight + enemyScriptableObject.spawnDistance;
                     break;
             }
-
             return spawnPosition;
         } 
         #endregion
@@ -136,6 +138,8 @@ namespace CosmicCuration.Enemy
         public void SetEnemySpawning(bool setActive) => isSpawning = setActive;
 
         public void ReturnEnemyToPool(EnemyController enemyToReturn) => enemyPool.ReturnItem(enemyToReturn);
+
+        public void ReturnBulletToPool(BulletController bulletToReturn) => bulletPool.ReturnItem(bulletToReturn);
     }
 
     public enum EnemyOrientation

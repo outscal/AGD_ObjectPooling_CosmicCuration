@@ -1,3 +1,4 @@
+using CosmicCuration.Bullets;
 using UnityEngine;
 
 namespace CosmicCuration.Enemy
@@ -6,7 +7,7 @@ namespace CosmicCuration.Enemy
     {
         public NormalEnemy(EnemyData enemyData) : base(enemyData) { }
 
-        public override void Configure(Vector3 positionToSet, EnemyOrientation enemyOrientation)
+        public override void Configure(Vector3 positionToSet, EnemyOrientation enemyOrientation, BulletPool bulletPool=null)
         {
             base.Configure(positionToSet, enemyOrientation);
         }

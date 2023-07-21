@@ -5,6 +5,7 @@ namespace CosmicCuration.Enemy
     public class EnemyView : MonoBehaviour, IDamageable
     {
         private EnemyController enemyController;
+        public Transform canonTransform;
 
         public void SetController(EnemyController enemyController) => this.enemyController = enemyController;
 

@@ -2,6 +2,7 @@ using UnityEngine;
 using CosmicCuration.Audio;
 using CosmicCuration.VFX;
 using CosmicCuration.Player;
+using CosmicCuration.Bullets;
 
 namespace CosmicCuration.Enemy
 {
@@ -10,6 +11,7 @@ namespace CosmicCuration.Enemy
         // Dependencies:
         protected EnemyView enemyView;
         protected EnemyData enemyData;
+        private BulletPool bulletPool;
 
         // Variables:
         protected EnemyState currentEnemyState;
@@ -17,6 +19,9 @@ namespace CosmicCuration.Enemy
         protected float speed;
         protected float movementTimer;
         protected Quaternion targetRotation;
+        private ShootingState currentShootingState;
+        private float currentRateOfFire;
+        private bool isShooting;
 
         public EnemyController(EnemyData enemyData)
         {
@@ -25,16 +30,21 @@ namespace CosmicCuration.Enemy
             this.enemyData = enemyData;
         }
 
-        public virtual void Configure(Vector3 positionToSet, EnemyOrientation enemyOrientation)
+        public virtual void Configure(Vector3 positionToSet, EnemyOrientation enemyOrientation, BulletPool bulletPool=null)
         {
             enemyView.transform.position = positionToSet;
             SetEnemyOrientation(enemyOrientation);
+
+            this.bulletPool = bulletPool;
 
             currentEnemyState = EnemyState.Moving;
             currentHealth = enemyData.maxHealth;
             speed = Random.Range(enemyData.minimumSpeed, enemyData.maximumSpeed);
             movementTimer = enemyData.movementDuration;
             enemyView.gameObject.SetActive(true);
+
+            currentShootingState = ShootingState.NotFiring;
+            currentRateOfFire = enemyData.defaultFireRate;
         }
 
         protected void SetEnemyOrientation(EnemyOrientation orientation)
@@ -55,6 +65,41 @@ namespace CosmicCuration.Enemy
                     enemyView.transform.rotation = Quaternion.Euler(0f, 0f, 180f);
                     break;
             }
+        }
+
+        public void SetIsShooting(bool isShooting)
+        {
+            this.isShooting = isShooting;
+            if (isShooting)
+                StartShooting();
+            else
+                StopShooting();
+        }
+
+        protected virtual void StartShooting()
+        {
+            currentShootingState = ShootingState.Firing;
+        }
+
+        protected virtual void StopShooting()
+        {
+            currentShootingState = ShootingState.NotFiring;
+        }
+
+        protected void Shoot()
+        {
+            if (currentShootingState == ShootingState.Firing)
+            {
+              FireBulletAtPosition(enemyView.canonTransform);
+            }
+        }
+
+        private void FireBulletAtPosition(Transform fireLocation)
+        {
+            BulletController bulletToFire = bulletPool.GetBullet();
+            bulletToFire.ConfigureBullet(fireLocation);
+            bulletToFire.ChangeBulletColor(Color.red);
+            GameService.Instance.GetSoundService().PlaySoundEffects(SoundType.PlayerBullet);
         }
 
         public void TakeDamage(int damageToTake)
@@ -84,6 +129,9 @@ namespace CosmicCuration.Enemy
                 if (Quaternion.Angle(enemyView.transform.rotation, targetRotation) < enemyData.rotationTolerance)
                     currentEnemyState = EnemyState.Moving;
             }
+
+            if (isShooting)
+                Shoot();
         }
 
         protected void SetTargetRotation()
@@ -109,6 +157,13 @@ namespace CosmicCuration.Enemy
             GameService.Instance.GetVFXService().PlayVFXAtPosition(VFXType.EnemyExplosion, enemyView.transform.position);
             enemyView.gameObject.SetActive(false);
             GameService.Instance.GetEnemyService().ReturnEnemyToPool(this);
+        }
+
+        // Enums
+        private enum ShootingState
+        {
+            Firing,
+            NotFiring
         }
 
         protected enum EnemyState

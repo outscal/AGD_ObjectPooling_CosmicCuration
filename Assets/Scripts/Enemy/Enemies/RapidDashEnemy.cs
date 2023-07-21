@@ -1,3 +1,4 @@
+using CosmicCuration.Bullets;
 using UnityEngine;
 
 namespace CosmicCuration.Enemy
@@ -11,7 +12,7 @@ namespace CosmicCuration.Enemy
             dashSpeed = enemyData.dashSpeed;
         }
 
-        public override void Configure(Vector3 positionToSet, EnemyOrientation enemyOrientation)
+        public override void Configure(Vector3 positionToSet, EnemyOrientation enemyOrientation, BulletPool bulletPool = null)
         {
             base.Configure(positionToSet, enemyOrientation);
             StartDash();

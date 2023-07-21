@@ -1,3 +1,4 @@
+using CosmicCuration.Bullets;
 using UnityEngine;
 
 namespace CosmicCuration.Enemy
@@ -12,12 +13,12 @@ namespace CosmicCuration.Enemy
         {
             shootingDistance = enemyData.shootingDistance;
             shootingCooldown = enemyData.shootingCooldown;
-            nextShotTime = 0f;
+            nextShotTime = shootingCooldown;
         }
 
-        public override void Configure(Vector3 positionToSet, EnemyOrientation enemyOrientation)
+        public override void Configure(Vector3 positionToSet, EnemyOrientation enemyOrientation, BulletPool bulletPool=null)
         {
-            base.Configure(positionToSet, enemyOrientation);
+            base.Configure(positionToSet, enemyOrientation, bulletPool);
             StartShooting();
         }
 
@@ -38,18 +39,22 @@ namespace CosmicCuration.Enemy
                     nextShotTime = Time.time + shootingCooldown;
                 }
             }
+                else
+                {
+                    SetIsShooting(false);
+                }
         }
 
         protected bool IsPlayerInShootingRange()
         {
             Vector3 playerPosition = GameService.Instance.GetPlayerService().GetPlayerPosition();
             float distanceToPlayer = Vector3.Distance(enemyView.transform.position, playerPosition);
-            return distanceToPlayer <= shootingDistance;
+            return distanceToPlayer <= shootingDistance;  
         }
 
         protected void ShootPlayer()
         {
-            // Perform shooting logic here
+            SetIsShooting(true);
         }
     }
 }

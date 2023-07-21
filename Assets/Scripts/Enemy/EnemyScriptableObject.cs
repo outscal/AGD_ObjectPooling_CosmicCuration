@@ -30,5 +30,6 @@ namespace CosmicCuration.Enemy
         public float dashSpeed;
         public float shootingDistance;
         public float shootingCooldown;
+        public float defaultFireRate;
     } 
 }

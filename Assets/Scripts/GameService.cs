@@ -51,7 +51,7 @@ public class GameService : GenericMonoSingleton<GameService>
         soundService = new SoundService(soundScriptableObject, audioEffectSource, backgroundMusicSource);
         playerService = new PlayerService(playerPrefab, playerScriptableObject, playerBulletPrefab, playerBulletScriptableObject);
         powerUpService = new PowerUpService(powerUpScriptableObject);
-        enemyService = new EnemyService(enemyScriptableObject);
+        enemyService = new EnemyService(enemyScriptableObject,playerBulletPrefab,playerBulletScriptableObject);
         vfxService = new VFXService(vfxPrefab);
     }
 
