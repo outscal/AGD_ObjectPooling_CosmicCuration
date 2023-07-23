@@ -53,6 +53,11 @@ public class GameService : GenericMonoSingleton<GameService>
     {
         // Initialize all Services.
         soundService = new SoundService(soundScriptableObject, audioEffectSource, backgroundMusicSource);
+    }
+
+    public void Initialize()
+    {
+        SetDifficultyVariables();
         playerService = new PlayerService(playerPrefab, playerScriptableObject, playerBulletPrefab, playerBulletScriptableObject);
         powerUpService = new PowerUpService(powerUpScriptableObject);
         enemyService = new EnemyService(enemyPrefab, enemyScriptableObject);

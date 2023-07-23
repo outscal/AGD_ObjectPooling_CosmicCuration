@@ -82,6 +82,7 @@ namespace MainMenuUI
         private void OnClickStartButton()
         {
             homeScreen.SetActive(false);
+            GameService.Instance.Initialize();
             gameplayPanel.SetActive(true);
         }
 
@@ -123,12 +124,12 @@ namespace MainMenuUI
 
         private void OnClickSoundButton()
         {
-            // Implement your logic for the Sound button click
+            
         }
 
         private void OnClickMusicButton()
         {
-            // Implement your logic for the Music button click
+
         }
 
         private void OnClickDifficultyPanelBackButton()

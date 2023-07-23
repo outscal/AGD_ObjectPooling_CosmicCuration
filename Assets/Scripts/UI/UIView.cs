@@ -12,7 +12,11 @@ namespace CosmicCuration.UI
         [SerializeField] private Text highScoreText;
         [SerializeField] private Text healthText;
         [SerializeField] private GameObject gameplayPanel;
+        
+        [Header("GameOver Panel")]
         [SerializeField] private GameObject gameOverPanel;
+        [SerializeField] private Text currentScoreTxt;
+        [SerializeField] private Text highScoreTxt;
         [SerializeField] private Button playAgainButton;
         [SerializeField] private Button quitButton;
         #endregion
@@ -46,8 +50,15 @@ namespace CosmicCuration.UI
         {
             gameplayPanel.SetActive(false);
             gameOverPanel.SetActive(true);
+            SetupGameOverPanelInfo();
             playAgainButton.onClick.AddListener(OnPlayAgainClicked);
-            quitButton.onClick.AddListener(OnQuitClicked);
+            quitButton.onClick.AddListener(OnMainMenuClicked);
+        }
+
+        private void SetupGameOverPanelInfo()
+        {
+            currentScoreTxt.text = "Your Score: "+currentScore;
+            highScoreTxt.text = "High Score: "+highScore;
         }
 
         public void StoreHighScore()
@@ -61,6 +72,6 @@ namespace CosmicCuration.UI
 
         private void OnPlayAgainClicked() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
-        private void OnQuitClicked() => Application.Quit();
+        private void OnMainMenuClicked() => Application.Quit();
     } 
 }
