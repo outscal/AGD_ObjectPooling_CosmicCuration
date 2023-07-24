@@ -29,7 +29,7 @@ MonoBehaviour:
     rotationSpeed: 200
     rotationTolerance: 2
     dashSpeed: 0
-    shootingDistance: 3
+    shootingDistance: 4
     shootingCooldown: 2
     defaultFireRate: 0
   - enemyType: 1
