@@ -1,6 +1,8 @@
 using UnityEngine;
 using CosmicCuration.VFX;
 using CosmicCuration.Audio;
+using CosmicCuration.Player;
+using CosmicCuration.Enemy;
 
 namespace CosmicCuration.Bullets
 {
@@ -8,6 +10,7 @@ namespace CosmicCuration.Bullets
     {
         private BulletView bulletView;
         private BulletScriptableObject bulletScriptableObject;
+        private bool isEnemyBullet;
 
         public BulletController(BulletView bulletViewPrefab, BulletScriptableObject bulletScriptableObject)
         {
@@ -22,11 +25,13 @@ namespace CosmicCuration.Bullets
             bulletView.gameObject.SetActive(true);
             bulletView.transform.position = spawnTransform.position;
             bulletView.transform.rotation = spawnTransform.rotation;
+            isEnemyBullet = false;
         }
 
         public void ChangeBulletColor(Color color)
         {
             bulletView.GetComponent<SpriteRenderer>().color = color;
+            isEnemyBullet = true;
         }
 
         public void UpdateBulletMotion() => bulletView.transform.Translate(Vector2.up * Time.deltaTime * bulletScriptableObject.speed);
@@ -39,7 +44,20 @@ namespace CosmicCuration.Bullets
                 GameService.Instance.GetSoundService().PlaySoundEffects(SoundType.BulletHit);
                 GameService.Instance.GetVFXService().PlayVFXAtPosition(VFXType.BulletHitExplosion, bulletView.transform.position);
                 bulletView.gameObject.SetActive(false);
-                GameService.Instance.GetPlayerService().ReturnBulletToPool(this);
+                if (collidedGameObject.GetComponent<PlayerView>())
+                {
+                    if (isEnemyBullet)
+                        GameService.Instance.GetEnemyService().ReturnBulletToPool(this);
+                    else
+                        GameService.Instance.GetPlayerService().ReturnBulletToPool(this);
+                }
+                else if (collidedGameObject.GetComponent<EnemyView>())
+                {
+                    if (isEnemyBullet)
+                        GameService.Instance.GetEnemyService().ReturnBulletToPool(this);
+                    else
+                        GameService.Instance.GetPlayerService().ReturnBulletToPool(this);
+                }
             }
         }
     }
