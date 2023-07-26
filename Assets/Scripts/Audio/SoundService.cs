@@ -9,16 +9,24 @@ namespace CosmicCuration.Audio
         private AudioSource audioEffects;
         private AudioSource backgroundMusic;
 
+        public bool isSoundEnabled;
+        public bool isMusicEnabled;
+
         public SoundService(SoundScriptableObject soundScriptableObject, AudioSource audioEffectSource, AudioSource bgMusicSource)
         {
             this.soundScriptableObject = soundScriptableObject;
             audioEffects = audioEffectSource;
             backgroundMusic = bgMusicSource;
             PlaybackgroundMusic(SoundType.BackgroundMusic, true);
+            isSoundEnabled = true;
+            isMusicEnabled = true;
         }
 
         public void PlaySoundEffects(SoundType soundType, bool loopSound = false)
         {
+            if (!isSoundEnabled)
+                return;
+
             AudioClip clip = GetSoundClip(soundType);
             if (clip != null)
             {
@@ -49,6 +57,34 @@ namespace CosmicCuration.Audio
             if (st.audio != null)
                 return st.audio;
             return null;
+        }
+
+        public void SetSoundState()
+        {
+            if (isSoundEnabled)
+            {
+                audioEffects.Stop();
+                isSoundEnabled = false;
+            }
+            else
+            {
+                audioEffects.Play();
+                isSoundEnabled = true;
+            }
+        }
+
+        public void SetMusicState()
+        {
+            if (isMusicEnabled)
+            {
+                backgroundMusic.Stop();
+                isMusicEnabled = false;
+            }
+            else
+            {
+                backgroundMusic.Play();
+                isMusicEnabled = true;
+            }
         }
     }
 }

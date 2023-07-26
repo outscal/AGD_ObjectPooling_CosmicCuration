@@ -3527,8 +3527,8 @@ MonoBehaviour:
   instructionsButton: {fileID: 1908257184}
   audioPanel: {fileID: 574347434}
   audioPanelBackButton: {fileID: 4834697751957395553}
-  soundButton: {fileID: 0}
-  musicbutton: {fileID: 0}
+  soundButton: {fileID: 1013596307}
+  musicbutton: {fileID: 298629103}
   difficultyPanel: {fileID: 1027400839}
   difficultyPanelBackButton: {fileID: 4834697750125036460}
   easyButton: {fileID: 1571104524}

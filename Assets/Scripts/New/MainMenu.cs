@@ -70,8 +70,8 @@ namespace MainMenuUI
             setDifficultyButton.onClick.AddListener(OnClickSetDifficultyButton);
             instructionsButton.onClick.AddListener(OnClickInstructionsButton);
             audioPanelBackButton.onClick.AddListener(OnClickAudioPanelBackButton);
-            //soundButton.onClick.AddListener(OnClickSoundButton);
-            //musicbutton.onClick.AddListener(OnClickMusicButton);
+            soundButton.onClick.AddListener(OnClickSoundButton);
+            musicbutton.onClick.AddListener(OnClickMusicButton);
             difficultyPanelBackButton.onClick.AddListener(OnClickDifficultyPanelBackButton);
             easyButton.onClick.AddListener(OnClickEasyButton);
             mediumButton.onClick.AddListener(OnClickMediumButton);
@@ -124,12 +124,12 @@ namespace MainMenuUI
 
         private void OnClickSoundButton()
         {
-            
+            GameService.Instance.GetSoundService().SetSoundState();
         }
 
         private void OnClickMusicButton()
         {
-
+            GameService.Instance.GetSoundService().SetMusicState();
         }
 
         private void OnClickDifficultyPanelBackButton()
