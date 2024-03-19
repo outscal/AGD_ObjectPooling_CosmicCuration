@@ -4,7 +4,7 @@ namespace CosmicCuration.Bullets
 {
     public class PooledBullet
     {
-        public BulletController bulletController;
+        public BulletController Bullet;
         public bool IsUsed;
     }
     
