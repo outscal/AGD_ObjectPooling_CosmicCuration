@@ -25,7 +25,12 @@ namespace CosmicCuration.Bullets
             if (pooledBullets.Count > 0)
             {
                 PooledBullet pooledBullet = pooledBullets.Find(item => !item.IsUsed);
-                return pooledBullet.bulletController;
+
+                if (pooledBullet!=null)
+                {
+                    pooledBullet.IsUsed = true;
+                    return pooledBullet.Bullet;
+                }
             }
 
             return CreateNewPooledBullet();
