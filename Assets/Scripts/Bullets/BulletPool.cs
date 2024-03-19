@@ -31,13 +31,19 @@ namespace CosmicCuration.Bullets
             return CreateNewPooledBullet();
         }
 
+        public void ReturnBullet(BulletController bulletController)
+        {
+            PooledBullet pooledBullet = pooledBullets.Find(item => item.Bullet == bulletController);
+            pooledBullet.IsUsed = false;
+        }
+
         private BulletController CreateNewPooledBullet()
         {
             PooledBullet pooledBullet = new PooledBullet();
-            pooledBullet.bulletController = new BulletController(bulletView, bulletScriptableObject);
+            pooledBullet.Bullet = new BulletController(bulletView, bulletScriptableObject);
             pooledBullet.IsUsed = true;
-
-            return pooledBullet.bulletController;
+            pooledBullets.Add(pooledBullet);
+            return pooledBullet.Bullet;
         }
     }
 }
