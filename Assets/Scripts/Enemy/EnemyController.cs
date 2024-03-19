@@ -21,6 +21,7 @@ namespace CosmicCuration.Enemy
         public EnemyController(EnemyView enemyPrefab, EnemyData enemyData)
         {
             enemyView = Object.Instantiate(enemyPrefab);
+            enemyView.gameObject.SetActive(true);
             enemyView.SetController(this);
             this.enemyData = enemyData;
         }
