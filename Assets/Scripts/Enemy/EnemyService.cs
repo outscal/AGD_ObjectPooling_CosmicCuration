@@ -9,6 +9,7 @@ namespace CosmicCuration.Enemy
         #region Dependencies
         private EnemyView enemyPrefab;
         private EnemyScriptableObject enemyScriptableObject;
+        private EnemyPool enemyPool;
         #endregion
 
         #region Variables
@@ -22,6 +23,7 @@ namespace CosmicCuration.Enemy
         {
             this.enemyPrefab = enemyPrefab;
             this.enemyScriptableObject = enemyScriptableObject;
+            this.enemyPool = new EnemyPool(enemyPrefab, enemyScriptableObject);
             InitializeVariables();
         }
 
