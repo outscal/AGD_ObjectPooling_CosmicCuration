@@ -61,7 +61,7 @@ namespace CosmicCuration.Enemy
 
         private void SpawnEnemyAtPosition(Vector2 spawnPosition, EnemyOrientation enemyOrientation)
         {
-            EnemyController spawnedEnemy = new EnemyController(enemyPrefab, enemyScriptableObject.enemyData);
+            EnemyController spawnedEnemy = enemyPool.GetEnemy();
             spawnedEnemy.Configure(spawnPosition, enemyOrientation);
         }
 
