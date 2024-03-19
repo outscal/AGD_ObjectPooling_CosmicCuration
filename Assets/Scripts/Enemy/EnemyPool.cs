@@ -40,8 +40,14 @@ namespace CosmicCuration.Enemy
         {
             PooledEnemy pooledEnemy = new PooledEnemy();
             pooledEnemy.Enemy = new EnemyController(enemyView, enemyScriptableObject.enemyData);
-            pooledEnemy.IsUsed = false;
+            pooledEnemy.IsUsed = true;
             return pooledEnemy.Enemy;
+        }
+
+        public void ReturnEnemy(EnemyController enemyController)
+        {
+            PooledEnemy pooledEnemy = pooledEnemies.Find(item => item.Enemy == enemyController);
+            pooledEnemy.IsUsed = false;
         }
     }
 }

@@ -110,6 +110,8 @@ namespace CosmicCuration.Enemy
         private void ResetSpawnTimer() => spawnTimer = currentSpawnRate;
 
         public void SetEnemySpawning(bool setActive) => isSpawning = setActive;
+
+        public void ReturnEnemyToPool(EnemyController enemyController) => enemyPool.ReturnEnemy(enemyController);
     }
 
     public enum EnemyOrientation
@@ -119,4 +121,6 @@ namespace CosmicCuration.Enemy
         Left,
         Right
     } 
+    
+    
 }
