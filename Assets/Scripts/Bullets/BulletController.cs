@@ -18,6 +18,7 @@ namespace CosmicCuration.Bullets
 
         public void ConfigureBullet(Transform spawnTransform)
         {
+            bulletView.gameObject.SetActive(true);
             bulletView.transform.position = spawnTransform.position;
             bulletView.transform.rotation = spawnTransform.rotation;
         }
