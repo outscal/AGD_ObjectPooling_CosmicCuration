@@ -21,6 +21,7 @@ namespace CosmicCuration.Enemy
         public EnemyController(EnemyView enemyPrefab, EnemyData enemyData)
         {
             enemyView = Object.Instantiate(enemyPrefab);
+            enemyView.gameObject.SetActive(true);
             enemyView.SetController(this);
             this.enemyData = enemyData;
         }
@@ -106,7 +107,8 @@ namespace CosmicCuration.Enemy
             GameService.Instance.GetUIService().IncrementScore(enemyData.scoreToGrant);
             GameService.Instance.GetSoundService().PlaySoundEffects(SoundType.EnemyDeath);
             GameService.Instance.GetVFXService().PlayVFXAtPosition(VFXType.EnemyExplosion, enemyView.transform.position);
-            Object.Destroy(enemyView.gameObject);
+            GameService.Instance.GetEnemyService().ReturnEnemyToPool(this);
+            enemyView.gameObject.SetActive(false);
         }
 
         private enum EnemyState
