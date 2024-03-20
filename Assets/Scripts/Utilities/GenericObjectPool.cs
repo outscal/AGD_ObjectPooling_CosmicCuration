@@ -40,6 +40,12 @@ namespace CosmicCuration.Utilities
         {
             throw new NotImplementedException("Not implement by child class!");
         }
+
+        public void ReturnItem(T item)
+        {
+            PooledItem<T> pooledItem = pooledItems.Find(i=>i.Item == item);
+            pooledItem.IsUsed = false;
+        }
         
     }
 }
