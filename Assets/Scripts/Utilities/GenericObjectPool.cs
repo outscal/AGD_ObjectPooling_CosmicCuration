@@ -36,7 +36,7 @@ namespace CosmicCuration.Utilities
             return newItem.Item;
         }
 
-        protected T CreateItem()
+        protected virtual T CreateItem()
         {
             throw new NotImplementedException("Not implement by child class!");
         }
