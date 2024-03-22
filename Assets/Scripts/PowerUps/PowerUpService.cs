@@ -8,10 +8,12 @@ namespace CosmicCuration.PowerUps
         private PowerUpScriptableObject powerUpScriptableObject;
         private bool isSpawning;
         private float spawnTimer;
+        private PowerupPool powerupPool;
 
         public PowerUpService(PowerUpScriptableObject powerUpScriptableObject)
         {
             this.powerUpScriptableObject = powerUpScriptableObject;
+            powerupPool = new PowerupPool();
             spawnTimer = this.powerUpScriptableObject.spawnRate;
             isSpawning = true;
         }
@@ -77,5 +79,6 @@ namespace CosmicCuration.PowerUps
         }
 
         public void SetPowerUpSpawning(bool setSpawningActive) => isSpawning = setSpawningActive;
+        public void ReturnPowerupToPool(PowerUpController returnPowerup) => powerupPool.ReturnItem(returnPowerup);
     } 
 }
