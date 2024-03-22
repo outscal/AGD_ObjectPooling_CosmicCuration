@@ -46,6 +46,10 @@ namespace CosmicCuration.PowerUps
             StartTimer();
         }
 
-        public virtual void Deactivate() => isActive = false;
+        public virtual void Deactivate()
+        {
+            isActive = false;
+            GameService.Instance.GetPowerUpService().ReturnPowerupToPool(this);
+        }
     } 
 }
